@@ -1,0 +1,737 @@
+What type would you choose for the following “numbers”?
+A person’s telephone number String
+A person’s height Double
+A person’s age Integer
+A person’s gender (Male, Female, Prefer Not To Answer) String
+A person’s salary Double
+A book’s ISBN String
+A book’s price Double
+A book’s shipping weight Double
+A country’s population Integer
+The number of stars in the universe long
+The number of employees in each of the small or medium businesses in the
+United Kingdom (up to about 50,000 employees per business) Integer
+
+What are the difference between value type and reference type variables? What is
+boxing and unboxing?
+value type will hold the value variable 
+-	stored in stack memory (arranged memory, organized memory)
+-	value types are not collected by garbage collector
+-	cannot accept null value
+-	value types are created using struct or Enum
+reference type will hold the memory address
+-	stored in heap memory
+-	reference type will collect by garbage collector
+-	can accept null value
+-	reference types are created using class or interface
+
+Boxing is the process of converting a value type to the type object or to any interface type implemented by this value type. 
+Unboxing extracts the value type from the object.
+
+What is meant by the terms managed resource and unmanaged resource in .NET
+Managed code is the code which is managed by the CLR(Common Language Runtime) in .NET Framework. 
+Unmanaged code is the code which is directly executed by the operating system.
+
+Whats the purpose of Garbage Collector in .NET?
+The garbage collector manages the allocation and release of memory for an application.
+
+using System;
+namespace _02UnderstandingTypes
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Size and Range of Various Data Types");
+            Console.WriteLine("sbyte: {0} bytes, Min: {1}, Max: {2}", sizeof(sbyte), sbyte.MinValue, sbyte.MaxValue);
+            Console.WriteLine("byte: {0} bytes, Min: {1}, Max: {2}", sizeof(byte), byte.MinValue, byte.MaxValue);
+            Console.WriteLine("short: {0} bytes, Min: {1}, Max: {2}", sizeof(short), short.MinValue, short.MaxValue);
+            Console.WriteLine("ushort: {0} bytes, Min: {1}, Max: {2}", sizeof(ushort), ushort.MinValue, ushort.MaxValue);
+            Console.WriteLine("int: {0} bytes, Min: {1}, Max: {2}", sizeof(int), int.MinValue, int.MaxValue);
+            Console.WriteLine("uint: {0} bytes, Min: {1}, Max: {2}", sizeof(uint), uint.MinValue, uint.MaxValue);
+            Console.WriteLine("long: {0} bytes, Min: {1}, Max: {2}", sizeof(long), long.MinValue, long.MaxValue);
+            Console.WriteLine("ulong: {0} bytes, Min: {1}, Max: {2}", sizeof(ulong), ulong.MinValue, ulong.MaxValue);
+            Console.WriteLine("float: {0} bytes, Min: {1}E+38, Max: {2}E+38", sizeof(float), float.MinValue / 1_000_000_000_000_000_000, float.MaxValue / 1_000_000_000_000_000_000);
+            Console.WriteLine("double: {0} bytes, Min: {1}E+308, Max: {2}E+308", sizeof(double), double.MinValue / 1_000_000_000_000_000_000, double.MaxValue / 1_000_000_000_000_000_000);
+            Console.WriteLine("decimal: {0} bytes, Min: {1}, Max: {2}", sizeof(decimal), decimal.MinValue, decimal.MaxValue);
+        }
+    }
+}
+
+using System;
+using System.Numerics; 
+namespace TimeConversion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Enter number of centuries: ");
+            int centuries = int.Parse(Console.ReadLine());
+            int years = centuries * 100;
+            int days = (int)(years * 365); 
+            long hours = days * 24L;
+            long minutes = hours * 60L;
+            long seconds = minutes * 60L;
+            BigInteger milliseconds = new BigInteger(seconds) * 1000;
+            BigInteger microseconds = milliseconds * 1000;
+            BigInteger nanoseconds = microseconds * 1000;
+
+            Console.WriteLine($"{centuries} centuries is equivalent to:");
+            Console.WriteLine($"{years} years");
+            Console.WriteLine($"{days} days");
+            Console.WriteLine($"{hours} hours");
+            Console.WriteLine($"{minutes} minutes");
+            Console.WriteLine($"{seconds} seconds");
+            Console.WriteLine($"{milliseconds} milliseconds");
+            Console.WriteLine($"{microseconds} microseconds");
+            Console.WriteLine($"{nanoseconds} nanoseconds");
+        }
+    }
+}
+
+1. What happens when you divide an int variable by 0?
+It will get an error and show "System.DivideByZeroException"
+2. What happens when you divide a double variable by 0?
+If divide a double by zero, the result is not a number. Will get “PositiveInfinity”, “NegativeInfinity”, or “NaN” depending on the value of the double.
+3. What happens when you overflow an int variable, that is, set it to a value beyond its range?
+If an integer goes beyond its maximum or minimum limit, it wraps around to the opposite limit unless you are checking for overflow. If check for overflow, the program will show an OverflowException.
+4. What is the difference between x = y++; and x = ++y;?
+If use x = y++;, x gets the value of y, and then y increases by one. If use x = ++y;, y increases by one first, and then x gets the new value of y.
+5. What is the difference between break, continue, and return when used inside a loop statement?
+break: Stops the loop and moves to the statement after the loop.
+continue: Skips the rest of the loop's current iteration and starts the next one.
+return: Stops the loop and exits the whole method where the loop is.
+6. What are the three parts of a for statement and which of them are required?
+A for loop has three parts: initialization, condition, and iteration. None of these parts are required.
+7. What is the difference between the = and == operators?
+The = operator is used to set a value to a variable. 
+The == operator is used to check if two values are equal. 
+8. Does the following statement compile? for ( ; true; ) ;
+Yes, this statement does compile.
+9. What does the underscore _ represent in a switch expression?
+It matches any value that is not matched by the other cases in the switch.
+10. What interface must an object implement to be enumerated over by using the for each statement?
+An object must implement the IEnumerable interface to be used in a foreach statement. This interface allows the foreach loop to iterate through the object.
+
+1.
+using System;
+namespace Chapter03Exercise03
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                if (i % 3 == 0 && i % 5 == 0)
+                {
+                    Console.WriteLine("FizzBuzz");
+                }
+                else if (i % 3 == 0)
+                {
+                    Console.WriteLine("Fizz");
+                }
+                else if (i % 5 == 0)
+                {
+                    Console.WriteLine("Buzz");
+                }
+                else
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+    }
+}
+
+causing an infinite loop.
+int max = 500;
+byte previous = 0;
+for (byte i = 0; i < max; i++)
+{
+    Console.WriteLine(i);
+    if (i < previous)
+    {
+        Console.WriteLine("Warning: Stopping execution to prevent infinite loop.");
+        break; 
+    }
+    previous = i; 
+}
+
+using System;
+namespace GuessingGame
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int correctNumber = new Random().Next(3) + 1; 
+            Console.WriteLine("Guess a number between 1 and 3:");
+            int guessedNumber = int.Parse(Console.ReadLine());
+
+            if (guessedNumber < 1 || guessedNumber > 3)
+            {
+                Console.WriteLine("Your guess is out of the valid range.");
+            }
+            else if (guessedNumber == correctNumber)
+            {
+                Console.WriteLine("Correct! You guessed right.");
+            }
+            else if (guessedNumber < correctNumber)
+            {
+                Console.WriteLine("Too low.");
+            }
+            else
+            {
+                Console.WriteLine("Too high.");
+            }
+        }
+    }
+}
+
+2. 
+using System;
+namespace PyramidPattern
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int totalLines = 5; 
+
+            for (int line = 1; line <= totalLines; line++)
+            {
+                int numStars = 2 * line - 1;
+                int numSpaces = totalLines - line;
+
+                for (int space = 1; space <= numSpaces; space++)
+                {
+                    Console.Write(" ");
+                }
+
+                for (int star = 1; star <= numStars; star++)
+                {
+                    Console.Write("*");
+                }
+
+                Console.WriteLine();
+            }
+        }
+    }
+}
+
+using System;
+namespace AgeCalculator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter your birthdate (yyyy-mm-dd):");
+            DateTime birthDate = DateTime.Parse(Console.ReadLine());
+            DateTime today = DateTime.Today;
+
+            int ageInDays = (today - birthDate).Days;
+            Console.WriteLine($"You are {ageInDays} days old.");
+
+            int daysToNextAnniversary = 10000 - (ageInDays % 10000);
+            DateTime nextAnniversary = today.AddDays(daysToNextAnniversary);
+            
+            Console.WriteLine($"Your next 10,000 day anniversary will be on {nextAnniversary.ToShortDateString()}");
+        }
+    }
+}
+
+
+using System;
+namespace TimeBasedGreeting
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            DateTime now = DateTime.Now;
+            int hour = now.Hour;
+
+            if (hour >= 0 && hour < 6)
+            {
+                Console.WriteLine("Good Night");
+            }
+            if (hour >= 6 && hour < 12)
+            {
+                Console.WriteLine("Good Morning");
+            }
+            if (hour >= 12 && hour < 18)
+            {
+                Console.WriteLine("Good Afternoon");
+            }
+            if (hour >= 18 && hour < 24)
+            {
+                Console.WriteLine("Good Evening");
+            }
+        }
+    }
+}
+
+using System;
+namespace CountingByIncrements
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int maxCount = 24;
+            for (int increment = 1; increment <= 4; increment++)
+            {
+                for (int i = 0; i <= maxCount; i += increment)
+                {
+                    Console.Write(i + (i < maxCount ? ", " : ""));
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
+
+
+1. When to use String vs. StringBuilder in C# ?
+Use String when need to handle immutable text. 
+Use StringBuilder when need to make many changes to a string.
+2. What is the base class for all arrays in C#?
+The base class for all arrays in C# is System.Array
+3. How do you sort an array in C#?
+Use the Array.Sort() method.
+4. What property of an array object can be used to get the total number of elements in an array?
+Length
+5. Can you store multiple data types in System.Array?
+Yes
+6. What’s the difference between the System.Array.CopyTo() and System.Array.Clone()?
+System.Array.CopyTo() method copies elements from one array to another existing array at a specified index.
+System.Array.Clone() creates a shallow copy of the array and returns a new array. 
+
+1.
+using System;
+namespace ArrayCopy
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] originalArray = new int[10];
+            for (int i = 0; i < originalArray.Length; i++)
+            {
+                originalArray[i] = i * 2; 
+            }
+
+            int[] copiedArray = new int[originalArray.Length];
+
+            for (int i = 0; i < originalArray.Length; i++)
+            {
+                copiedArray[i] = originalArray[i];
+            }
+
+            Console.WriteLine("Original Array:");
+            foreach (int value in originalArray)
+            {
+                Console.Write(value + " ");
+            }
+            Console.WriteLine(); 
+
+            Console.WriteLine("Copied Array:");
+            foreach (int value in copiedArray)
+            {
+                Console.Write(value + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+
+2.
+using System;
+using System.Collections.Generic;
+namespace ListManager
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> items = new List<string>();
+            while (true)
+            {
+                Console.WriteLine("Enter command (+ item, - item, or -- to clear):");
+                string input = Console.ReadLine();
+                if (input.StartsWith("+ "))
+                {
+                    items.Add(input.Substring(2));
+                }
+                else if (input.StartsWith("- "))
+                {
+                    items.Remove(input.Substring(2)); 
+                }
+                else if (input == "--")
+                {
+                    items.Clear(); 
+                }
+
+                Console.WriteLine("Current list:");
+                foreach (var item in items)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
+    }
+}
+
+3.
+static int[] FindPrimesInRange(int startNum, int endNum)
+{
+    List<int> primes = new List<int>();
+    for (int num = startNum; num <= endNum; num++)
+    {
+        if (IsPrime(num))
+        {
+            primes.Add(num);
+        }
+    }
+    return primes.ToArray();
+}
+
+static bool IsPrime(int num)
+{
+    if (num <= 1) return false;
+    if (num == 2) return true;
+    if (num % 2 == 0) return false;
+    
+    int boundary = (int)Math.Sqrt(num);
+    
+    for (int i = 3; i <= boundary; i += 2)
+    {
+        if (num % i == 0) 
+            return false;
+    }
+    return true;
+}
+
+4. 
+using System;
+using System.Linq;
+namespace ArrayRotationSum
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the array elements (space-separated):");
+            int[] array = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            Console.WriteLine("Enter the number of rotations:");
+            int k = int.Parse(Console.ReadLine());
+
+            int[] sum = new int[array.Length];
+            int[] rotated = new int[array.Length];
+
+            for (int r = 0; r < k; r++)
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    rotated[(i + r + 1) % array.Length] = array[i];
+                }
+                
+                for (int i = 0; i < array.Length; i++)
+                {
+                    sum[i] += rotated[i];
+                }
+            }
+
+            Console.WriteLine("Sum of arrays after each rotation:");
+            Console.WriteLine(string.Join(" ", sum));
+        }
+    }
+}
+
+5.
+using System;
+using System.Linq;
+namespace LongestSequenceFinder
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the array elements (space-separated):");
+            int[] array = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+            int bestLength = 1;
+            int bestStart = 0;
+            int currentLength = 1;
+            int currentStart = 0;
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                if (array[i] == array[i - 1])
+                {
+                    currentLength++;
+                }
+                else
+                {
+                    if (currentLength > bestLength)
+                    {
+                        bestLength = currentLength;
+                        bestStart = currentStart;
+                    }
+                    currentLength = 1;
+                    currentStart = i;
+                }
+            }
+
+            if (currentLength > bestLength)
+            {
+                bestLength = currentLength;
+                bestStart = currentStart;
+            }
+
+            int[] result = new int[bestLength];
+            Array.Copy(array, bestStart, result, 0, bestLength);
+            Console.WriteLine("Longest sequence of equal elements:");
+            Console.WriteLine(string.Join(" ", result));
+        }
+    }
+}
+
+7.
+using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace MostFrequentNumberFinder
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the sequence of numbers (space-separated):");
+            int[] numbers = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+            Dictionary<int, int> frequencyMap = new Dictionary<int, int>();
+            int maxFrequency = 0;
+            int mostFrequentNumber = 0;
+
+            foreach (int number in numbers)
+            {
+                if (frequencyMap.ContainsKey(number))
+                {
+                    frequencyMap[number]++;
+                }
+                else
+                {
+                    frequencyMap[number] = 1;
+                }
+
+                if (frequencyMap[number] > maxFrequency)
+                {
+                    maxFrequency = frequencyMap[number];
+                    mostFrequentNumber = number;
+                }
+            }
+
+            Console.WriteLine($"The number {mostFrequentNumber} is the most frequent (occurs {maxFrequency} times)");
+        }
+    }
+}
+
+1. 
+using System;
+namespace StringReversal
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter a string:");
+            string input = Console.ReadLine();
+
+            // Method 1:
+            char[] charArray = input.ToCharArray();
+            Array.Reverse(charArray);
+            string reversedString = new string(charArray);
+            Console.WriteLine("Reversed string (using char array):");
+            Console.WriteLine(reversedString);
+
+            // Method 2: 
+            Console.WriteLine("Reversed string (using for loop):");
+            for (int i = input.Length - 1; i >= 0; i--)
+            {
+                Console.Write(input[i]);
+            }
+            Console.WriteLine(); // for newline
+        }
+    }
+}
+
+2. 
+using System;
+using System.Collections.Generic;
+namespace ReverseWordsInSentence
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter a sentence:");
+            string input = Console.ReadLine();
+
+            List<string> words = new List<string>();
+            List<string> separators = new List<string>();
+            string currentWord = "";
+
+            char[] separatorSet = { ' ', '.', ',', ';', '=', '(', ')', '&', '[', ']', '"', '\'', '\\', '/', '!', '?' };
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (Array.Exists(separatorSet, element => element == input[i]))
+                {
+                    if (currentWord != "")
+                    {
+                        words.Add(currentWord);
+                        currentWord = "";
+                    }
+                    separators.Add(input[i].ToString());
+                }
+                else
+                {
+                    currentWord += input[i];
+                }
+            }
+
+            if (currentWord != "")
+            {
+                words.Add(currentWord);
+            }
+
+            words.Reverse();
+
+            string result = "";
+            int wordIndex = 0, separatorIndex = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (Array.Exists(separatorSet, element => element == input[i]))
+                {
+                    result += separators[separatorIndex++];
+                }
+                else
+                {
+                    if (i == 0 || Array.Exists(separatorSet, element => element == input[i - 1]))
+                    {
+                        result += words[wordIndex++];
+                    }
+                }
+            }
+
+            Console.WriteLine("Reversed words in the sentence:");
+            Console.WriteLine(result);
+        }
+    }
+}
+
+3. 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+namespace ExtractPalindromes
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the text:");
+            string input = Console.ReadLine();
+
+            string[] words = Regex.Split(input, @"\W+");
+
+            HashSet<string> palindromes = new HashSet<string>();
+
+            foreach (string word in words)
+            {
+                if (IsPalindrome(word))
+                {
+                    palindromes.Add(word);
+                }
+            }
+
+            List<string> sortedPalindromes = palindromes.ToList();
+            sortedPalindromes.Sort();
+
+            Console.WriteLine("Unique palindromes:");
+            Console.WriteLine(string.Join(", ", sortedPalindromes));
+        }
+
+        static bool IsPalindrome(string word)
+        {
+            if (string.IsNullOrEmpty(word))
+            {
+                return false;
+            }
+
+            int left = 0;
+            int right = word.Length - 1;
+
+            while (left < right)
+            {
+                if (char.ToLower(word[left]) != char.ToLower(word[right]))
+                {
+                    return false;
+                }
+                left++;
+                right--;
+            }
+
+            return true;
+        }
+    }
+}
+
+4. 
+using System;
+
+namespace URLParser
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the URL:");
+            string url = Console.ReadLine();
+
+            string protocol = "";
+            string server = "";
+            string resource = "";
+
+            int protocolEndIndex = url.IndexOf("://");
+            if (protocolEndIndex != -1)
+            {
+                protocol = url.Substring(0, protocolEndIndex);
+                url = url.Substring(protocolEndIndex + 3); // Remove the protocol part from the URL
+            }
+
+            int resourceStartIndex = url.IndexOf('/');
+            if (resourceStartIndex != -1)
+            {
+                server = url.Substring(0, resourceStartIndex);
+                resource = url.Substring(resourceStartIndex + 1); // Get the resource part
+            }
+            else
+            {
+                server = url; // The rest is the server part
+            }
+
+            Console.WriteLine("[protocol] = \"" + protocol + "\"");
+            Console.WriteLine("[server] = \"" + server + "\"");
+            Console.WriteLine("[resource] = \"" + resource + "\"");
+        }
+    }
+}
+
+
